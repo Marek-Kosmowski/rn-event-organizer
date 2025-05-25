@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
 /// FONTS
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+
+import AppContextProvider from './store/appContext';
+
+/// ROOT NAVIGATIOR
+import RootNavigator from './navigation/rootNavigation';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,20 +28,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontFamily: 'Anton' }}>
-        Open up App.js to start working on your app!!!
-      </Text>
-      <StatusBar style='auto' />
-    </View>
+    <AppContextProvider>
+      <RootNavigator />
+    </AppContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
