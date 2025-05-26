@@ -1,12 +1,31 @@
-import { StyleSheet, Text, SafeAreaView, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  TextInput,
+  Button,
+  Alert,
+  Pressable,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppStyle } from '../utils/constants';
 import { useState } from 'react';
+
+import { signUpUser } from '../utils/user.firebase';
 
 export default function AuthScreen() {
   const [type, setType] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleAuth = async () => {
+    if (email === '' && password === '') {
+      Alert.alert('Please check your credentials');
+    }
+    if (type) {
+      await signUpUser(email, password);
+    }
+  };
 
   return (
     <LinearGradient
@@ -35,8 +54,22 @@ export default function AuthScreen() {
           secureTextEntry={true}
           textContentType='password'
           value={password}
-          onChange={(text) => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
         />
+
+        <Button title={type ? 'Sign up' : 'Sign In'} onPress={handleAuth} />
+
+        <Pressable
+          style={{ flexDirection: 'row' }}
+          onPress={() => setType(!type)}
+        >
+          <Text style={styles.textType}>
+            {!type ? "Don't have an account ? " : 'Already have an account ? '}
+          </Text>
+          <Text style={[styles.textType, { fontWeight: 'bold' }]}>
+            {!type ? 'Sign up' : 'Sign in'}
+          </Text>
+        </Pressable>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -68,5 +101,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     color: '#FFFFFF',
+  },
+  textType: {
+    fontSize: 20,
+    marginTop: 20,
+    color: '#fffffe',
   },
 });
