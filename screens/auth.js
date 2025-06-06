@@ -11,6 +11,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AppStyle } from '../utils/constants';
 import { useState } from 'react';
 
+import ButtonCustom from '../components/button.custom';
+
 import { signUpUser, signInUser } from '../utils/user.firebase';
 
 export default function AuthScreen() {
@@ -58,8 +60,12 @@ export default function AuthScreen() {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-
-        <Button title={type ? 'Sign up' : 'Sign In'} onPress={handleAuth} />
+        <ButtonCustom
+          title={type ? 'Sign up' : 'Sign In'}
+          onPress={handleAuth}
+          light={true}
+        />
+        {/* <Button title={type ? 'Sign up' : 'Sign In'}  /> */}
 
         <Pressable
           style={{ flexDirection: 'row' }}
