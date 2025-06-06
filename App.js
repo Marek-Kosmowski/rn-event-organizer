@@ -1,3 +1,5 @@
+import { RootSiblingParent } from 'react-native-root-siblings';
+
 import { useEffect } from 'react';
 
 /// FONTS
@@ -29,7 +31,9 @@ export default function App() {
 
   return (
     <AppContextProvider>
-      <RootNavigator />
+      <RootSiblingParent>
+        <RootNavigator />
+      </RootSiblingParent>
     </AppContextProvider>
   );
 }

@@ -11,7 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AppStyle } from '../utils/constants';
 import { useState } from 'react';
 
-import { signUpUser } from '../utils/user.firebase';
+import { signUpUser, signInUser } from '../utils/user.firebase';
 
 export default function AuthScreen() {
   const [type, setType] = useState(true);
@@ -24,6 +24,8 @@ export default function AuthScreen() {
     }
     if (type) {
       await signUpUser(email, password);
+    } else {
+      await signInUser(email, password);
     }
   };
 
